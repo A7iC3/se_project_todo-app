@@ -14,4 +14,4 @@ The project uses HTML, CSS and Javascript to function. It also makes use of Bloc
 
 This project is deployed on GitHub Pages:
 
-- ADD LINK HERE
+- [Live Website on GitHub Pages](https://a7ic3.github.io/se_project_todo-app/)
