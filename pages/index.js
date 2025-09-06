@@ -18,6 +18,14 @@ const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
 };
 
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    if (addTodoPopup.classList.contains("popup_visible")) {
+      closeModal(addTodoPopup);
+    }
+  }
+});
+
 addTodoButton.addEventListener("click", () => {
   openModal(addTodoPopup);
 });
