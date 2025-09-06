@@ -1,6 +1,7 @@
 import { initialTodos, validationConfig } from "../utils/constants.js";
 import { Todo } from "../components/Todo.js";
 import { FormValidator } from "../components/FormValidator.js";
+import { updateCounter } from "../components/taskCounter.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
@@ -39,12 +40,16 @@ addTodoForm.addEventListener("submit", (evt) => {
   todosList.append(todo);
   closeModal(addTodoPopup);
   todoFormValidator.resetValidation();
+  updateCounter();
 });
 
 initialTodos.forEach((item) => {
   const todo = new Todo(item, todoTemplate).getView();
   todosList.append(todo);
+  updateCounter();
 });
 
 const todoFormValidator = new FormValidator(validationConfig, addTodoForm);
 todoFormValidator.enableValidation();
+
+export { todosList };
