@@ -4,7 +4,7 @@ Give a brief description of the project here. Feel free to give it a different n
 
 ## Functionality
 
-A simple to-do application that users can create and delete tasks that appear in a list with a respective checkbox that is able to be ticked or unticked.
+A simple to-do application that users can create and delete tasks that appear in a list with a respective checkbox that is able to be ticked or unticked. Sub heading that shows the number of tasks and how many are completed.
 
 ## Technology
 
