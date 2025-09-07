@@ -1,10 +1,10 @@
 # Simple Todo App
 
-Give a brief description of the project here. Feel free to give it a different name.
+A simple to-do application that users can create, tick/untick and delete tasks.
 
 ## Functionality
 
-A simple to-do application that users can create and delete tasks that appear in a list with a respective checkbox that is able to be ticked or unticked. Sub heading that shows the number of tasks and how many are completed.
+Can click a New Task button to open a modal with a form to add a new task to the list. Can tick the boxes adjacent to a task or it's name to check off each task, which updates the completed tasks header. Can click a delete button on a task to remove it from the list.
 
 ## Technology
 
