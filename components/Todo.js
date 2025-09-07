@@ -2,22 +2,23 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import { updateCounter } from "./taskCounter.js";
 
 class Todo {
-  constructor(data, selector) {
-    if (data.id === undefined) {
+  constructor(todoData, templateSele) {
+    if (todoData.id === undefined) {
       this._id = uuidv4();
     } else {
-      this._id = data.id;
+      this._id = todoData.id;
     }
-    this._template = selector;
-    this._name = data.name;
-    this._completed = data.completed;
-    this._date = data.date;
+    this._templateSele = templateSele;
+    this._name = todoData.name;
+    this._completed = todoData.completed;
+    this._date = todoData.date;
     this._initializeElement();
   }
   _initializeElement() {
     //Getting the eles/seles for the todo block
-    this._todoEle = this._template.content
-      .querySelector(".todo")
+    this._todoEle = document
+      .querySelector(this._templateSele)
+      .content.querySelector(".todo")
       .cloneNode(true);
     this._nameEle = this._todoEle.querySelector(".todo__name");
     this._checkboxEle = this._todoEle.querySelector(".todo__completed");

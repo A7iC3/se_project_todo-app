@@ -1,13 +1,12 @@
-import { todosList } from "../pages/index.js";
-
+import { todosList } from "../utils/constants.js";
 const taskCountHeader = document.querySelector(".counter__text");
 
 const updateCounter = () => {
-  const tasksY = Array.from(todosList.children).slice(1);
-  const tasksX = tasksY.filter(
+  const _totalTasks = Array.from(todosList.children).slice(1);
+  const _completedTasks = _totalTasks.filter(
     (task) => task.querySelector(".todo__completed").checked
   );
-  taskCountHeader.textContent = `Showing ${tasksX.length} out of ${tasksY.length} completed`;
+  taskCountHeader.textContent = `Showing ${_completedTasks.length} out of ${_totalTasks.length} completed`;
 };
 
 export { updateCounter };

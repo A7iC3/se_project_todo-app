@@ -1,3 +1,5 @@
+const todosList = document.querySelector(".todos__list");
+
 const initialTodos = [
   {
     id: "7cec7373-681b-49d9-b065-021d61a69d03",
@@ -28,4 +30,4 @@ const validationConfig = {
   inactiveButtonClass: "button_disabled",
 };
 
-export { initialTodos, validationConfig };
+export { todosList, initialTodos, validationConfig };

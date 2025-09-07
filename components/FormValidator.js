@@ -2,7 +2,6 @@ class FormValidator {
   constructor(validConfig, formEle) {
     this._validConfig = validConfig;
     this._formEle = formEle;
-    //this._formSele = validConfig.formSelector;
     this._inputSele = validConfig.inputSelector;
     this._submitSele = validConfig.submitButtonSelector;
     this._errorClass = validConfig.errorClass;
@@ -43,7 +42,7 @@ class FormValidator {
       this._hideInputError(inputObj);
     }
   }
-  _checkSubmit() {
+  checkSubmit() {
     if (
       this._inputList.every((inputListObj) => {
         return inputListObj.input.validity.valid;
@@ -51,16 +50,18 @@ class FormValidator {
     ) {
       this._submitBtn.classList.remove(this._inactBtnClass);
       this._submitBtn.disabled = false;
+      return true;
     } else {
       this._submitBtn.classList.add(this._inactBtnClass);
       this._submitBtn.disabled = true;
+      return false;
     }
   }
   _setEventListeners() {
     this._inputList.forEach((inputObj) => {
       inputObj.input.addEventListener("input", () => {
         this._checkValid(inputObj);
-        this._checkSubmit();
+        this.checkSubmit();
       });
     });
   }
@@ -69,14 +70,14 @@ class FormValidator {
       evt.preventDefault();
     });
     this._setEventListeners();
-    this._checkSubmit();
+    this.checkSubmit();
   }
   resetValidation() {
     this._formEle.reset();
     this._inputList.forEach((inputObj) => {
       this._hideInputError(inputObj);
     });
-    this._checkSubmit();
+    this.checkSubmit();
   }
 }
 
