@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
-import { updateCounter } from "./taskCounter.js";
+import UpdateCounter from "./UpdateCounter.js";
 
-class Todo {
+export default class Todo {
   constructor(todoData, templateSele) {
     if (todoData.id === undefined) {
       this._id = uuidv4();
@@ -43,15 +43,13 @@ class Todo {
   _setEventListeners() {
     this._deleteBtn.addEventListener("click", () => {
       this._todoEle.remove();
-      updateCounter();
+      UpdateCounter();
     });
     this._checkboxEle.addEventListener("change", () => {
-      updateCounter();
+      UpdateCounter();
     });
   }
   getView() {
     return this._todoEle;
   }
 }
-
-export { Todo };

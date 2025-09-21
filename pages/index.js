@@ -3,9 +3,9 @@ import {
   validationConfig,
   todosList,
 } from "../utils/constants.js";
-import { Todo } from "../components/Todo.js";
-import { FormValidator } from "../components/FormValidator.js";
-import { updateCounter } from "../components/taskCounter.js";
+import Todo from "../components/Todo.js";
+import FormValidator from "../components/FormValidator.js";
+import UpdateCounter from "../components/UpdateCounter.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
@@ -23,7 +23,7 @@ const closeModal = (modal) => {
 const renderTodo = (dataObj, templateSele) => {
   const _todo = new Todo(dataObj, templateSele).getView();
   todosList.append(_todo);
-  updateCounter();
+  UpdateCounter();
 };
 
 document.addEventListener("keydown", (event) => {
