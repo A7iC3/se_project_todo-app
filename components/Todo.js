@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 export default class Todo {
-  constructor(todoData, templateSele, { updateTotal, updateCompleted }) {
+  constructor(todoData, templateSelector, { updateTotal, updateCompleted }) {
     if (todoData.id === undefined) {
       this._id = uuidv4();
     } else {
       this._id = todoData.id;
     }
-    this._templateSele = templateSele;
+    this._templateSelector = templateSelector;
     this._name = todoData.name;
     this._completed = todoData.completed;
     this._date = todoData.date;
@@ -18,7 +18,7 @@ export default class Todo {
   _initializeElement() {
     //Getting the eles/seles for the todo block
     this._todoEle = document
-      .querySelector(this._templateSele)
+      .querySelector(this._templateSelector)
       .content.querySelector(".todo")
       .cloneNode(true);
     this._nameEle = this._todoEle.querySelector(".todo__name");

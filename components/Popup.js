@@ -2,6 +2,7 @@ class Popup {
   constructor(selector) {
     this._element = document.querySelector(selector);
     this._closeButton = this._element.querySelector(".popup__close");
+    this._handleEscapeClose = this._handleEscapeClose.bind(this);
   }
   _handleEscapeClose(event) {
     if (
@@ -16,25 +17,29 @@ class Popup {
       this.close();
     });
     this._element.addEventListener("click", (event) => {
-      if (event.target === this) {
+      if (event.target === this._element) {
         this.close();
       }
     });
   }
   open() {
     this._element.classList.add("popup_visible");
+    document.addEventListener("keydown", this._handleEscapeClose);
   }
   close() {
     this._element.classList.remove("popup_visible");
+    document.removeEventListener("keydown", this._handleEscapeClose);
   }
 }
 
 class PopupWithForm extends Popup {
   constructor(selector, submitFunction) {
     super(selector);
-    this._form = this._element.querySelector("form");
-    this._formInputs = this._form.querySelectorAll(".popup__input");
-    this._submitButton = this._form.querySelector('button[type="submit"]');
+    this.formElement = this._element.querySelector("form");
+    this._formInputs = this.formElement.querySelectorAll(".popup__input");
+    this._submitButton = this.formElement.querySelector(
+      'button[type="submit"]'
+    );
     this._submitFunction = submitFunction;
   }
   _getInputValues() {
@@ -46,14 +51,14 @@ class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener("submit", (event) => {
+    this.formElement.addEventListener("submit", (event) => {
       event.preventDefault();
       this._submitHandler();
     });
   }
   _submitHandler() {
     this._submitFunction(this._getInputValues());
-    this._form.reset();
+    this.formElement.reset();
     this.close();
   }
 }

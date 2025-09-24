@@ -7,9 +7,10 @@ import { PopupWithForm } from "../components/Popup.js";
 import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
 import TodoCounter from "../components/TodoCounter.js";
+import Section from "../components/Section.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
-const TaskCounter = new TodoCounter(initialTodos, ".counter__text");
+const taskCounter = new TodoCounter(initialTodos, ".counter__text");
 const addTodoPopup = new PopupWithForm("#add-todo-popup", ({ name, date }) => {
   if (todoFormValidator.checkSubmit()) {
     // Create a date object and adjust for timezone
@@ -20,38 +21,37 @@ const addTodoPopup = new PopupWithForm("#add-todo-popup", ({ name, date }) => {
 
     const values = { name, date: formattedDate };
     renderTodo(values, "#todo-template");
-    TaskCounter.updateTotal(true);
+    taskCounter.updateTotal(true);
     todoFormValidator.resetValidation();
   }
 });
 addTodoPopup.setEventListeners();
 
-const renderTodo = (dataObj, templateSele) => {
-  const _todo = new Todo(dataObj, templateSele, {
+const renderTodo = (dataObj, templateSelector = "#todo-template") => {
+  const _todo = new Todo(dataObj, templateSelector, {
     updateCompleted: (increment) => {
-      TaskCounter.updateCompleted(increment);
+      taskCounter.updateCompleted(increment);
     },
     updateTotal: (increment) => {
-      TaskCounter.updateTotal(increment);
+      taskCounter.updateTotal(increment);
     },
   }).getView();
-  todosList.append(_todo);
+  TaskSection.addItem(_todo);
 };
-
-document.addEventListener("keydown", (event) => {
-  addTodoPopup._handleEscapeClose(event);
-});
 
 addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
 });
 
-initialTodos.forEach((item) => {
-  renderTodo(item, "#todo-template");
-});
-
 const todoFormValidator = new FormValidator(
   validationConfig,
-  addTodoPopup._form
+  addTodoPopup.formElement
 );
 todoFormValidator.enableValidation();
+
+const TaskSection = new Section({
+  items: initialTodos,
+  renderer: renderTodo,
+  containerSelector: ".todos__list",
+});
+TaskSection.renderItems();
