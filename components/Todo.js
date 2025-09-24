@@ -1,8 +1,7 @@
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
-import UpdateCounter from "./UpdateCounter.js";
 
 export default class Todo {
-  constructor(todoData, templateSele) {
+  constructor(todoData, templateSele, { updateTotal, updateCompleted }) {
     if (todoData.id === undefined) {
       this._id = uuidv4();
     } else {
@@ -12,6 +11,8 @@ export default class Todo {
     this._name = todoData.name;
     this._completed = todoData.completed;
     this._date = todoData.date;
+    this._updateCompleted = updateCompleted;
+    this._updateTotal = updateTotal;
     this._initializeElement();
   }
   _initializeElement() {
@@ -42,11 +43,14 @@ export default class Todo {
   }
   _setEventListeners() {
     this._deleteBtn.addEventListener("click", () => {
+      if (this._checkboxEle.checked === true) {
+        this._updateCompleted(false);
+      }
+      this._updateTotal(false);
       this._todoEle.remove();
-      UpdateCounter();
     });
     this._checkboxEle.addEventListener("change", () => {
-      UpdateCounter();
+      this._updateCompleted(this._checkboxEle.checked);
     });
   }
   getView() {

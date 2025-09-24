@@ -15,14 +15,14 @@ class Popup {
     this._closeButton.addEventListener("click", () => {
       this.close();
     });
-    this.addEventListener("click", (event) => {
+    this._element.addEventListener("click", (event) => {
       if (event.target === this) {
         this.close();
       }
     });
   }
   open() {
-    this._element._classList.add("popup_visible");
+    this._element.classList.add("popup_visible");
   }
   close() {
     this._element.classList.remove("popup_visible");
@@ -30,12 +30,12 @@ class Popup {
 }
 
 class PopupWithForm extends Popup {
-  constructor(selector, submitHandler) {
+  constructor(selector, submitFunction) {
     super(selector);
     this._form = this._element.querySelector("form");
     this._formInputs = this._form.querySelectorAll(".popup__input");
     this._submitButton = this._form.querySelector('button[type="submit"]');
-    this._submitHandler = submitHandler;
+    this._submitFunction = submitFunction;
   }
   _getInputValues() {
     const formInputValues = {};
@@ -45,15 +45,17 @@ class PopupWithForm extends Popup {
     return formInputValues;
   }
   setEventListeners() {
-    super();
+    super.setEventListeners();
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
-      this._submitHandler(this._getInputValues);
+      this._submitHandler();
     });
   }
-  _submitHandler(values) {
-    const inputValues = values;
+  _submitHandler() {
+    this._submitFunction(this._getInputValues());
     this._form.reset();
     this.close();
   }
 }
+
+export { PopupWithForm };
